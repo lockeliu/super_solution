@@ -1,9 +1,7 @@
 import torch
 from comm import load_data
+from comm import comm
 from math import log10
-from model import EDSR
-from model import MDSR
-from model import NewNet
 from model import SRGAN
 from comm.misc import progress_bar
 
@@ -30,7 +28,7 @@ class Trainer(object):
         self.training_loader = torch.utils.data.DataLoader( trainset , batch_size = self.train_batch_size , shuffle = True, num_workers=20 )
         self.testing_loader = torch.utils.data.DataLoader( valset , batch_size = 1, shuffle = True, num_workers=20 )
 
-        netG = self.get_model() 
+        netG = comm.get_model(self.model_type, self.scale_list, self.model_path) 
         netD = SRGAN.Discriminator(self.d_model_path)
         print(netG)
         print(netD)
@@ -51,18 +49,6 @@ class Trainer(object):
         self.schedulerD = torch.optim.lr_scheduler.StepLR(self.optimizerD, step_size=15, gamma=0.5)
 
         self.test_criterion = torch.nn.MSELoss()
-
-    def get_model(self):
-        self.model_type = self.model_type.lower()
-        if self.model_type == 'edsr':
-            return EDSR.EDSR(self.scale_list, self.model_path ) 
-        elif self.model_type == 'mdsr':
-            return MDSR.MDSR( self.scale_list, self.model_path )
-        elif self.model_type == 'newnet':
-            return NewNet.NewNet( self.scale_list, self.model_path )
-        else:
-            print("no this model_type " + self.model_type)
-            exit(-1)
 
     def save(self):
         self.netG.savemodel()
@@ -138,7 +124,7 @@ class Trainer(object):
 
     def run(self):
         self.build_model()
-        for epoch in range( 1, 1 ):
+        for epoch in range( 1, 11 ):
             self.pretrain()
         self.test()
         for epoch in range(1, self.epoch + 1):

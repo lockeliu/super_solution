@@ -5,7 +5,7 @@ from solver import solver,solver_gan
 
 if __name__ == "__main__" :
     ap = argparse.ArgumentParser()
-    ap.add_argument('-m', required = True, help = 'edsr mdsr srgan')
+    ap.add_argument('-m', required = True, help = 'edsr mdsr newnet')
     ap.add_argument('-t', required = True, help = 'train data dir')
     ap.add_argument('-v', required = True, help = 'val data dir')
     ap.add_argument('-s', required = False, help = 'scale list', default = 2)
@@ -16,7 +16,7 @@ if __name__ == "__main__" :
     ap.add_argument('-l', required = False, help = 'lr', default = 0.001)
     ap.add_argument('-g', required = False, help = 'gpu num', default = 4)
     ap.add_argument('-p', required = True, help = 'model_path')
-    ap.add_argument('-dp', required = True, help = 'D_model_path')
+    ap.add_argument('-dp', required = False, help = 'D_model_path', default = 'weight/SRGAN_Discriminator_weight.pt')
     ap.add_argument('-is_gan', required = False, help = '0:no gan 1 :gan', default = 0)
 
     args = vars(ap.parse_args())

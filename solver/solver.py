@@ -1,9 +1,7 @@
 import torch
 from comm import load_data
 from math import log10
-from model import EDSR
-from model import MDSR
-from model import NewNet
+from comm import comm
 from comm.misc import progress_bar
 
 class Trainer(object):
@@ -27,7 +25,7 @@ class Trainer(object):
         self.training_loader = torch.utils.data.DataLoader( trainset , batch_size = self.train_batch_size , shuffle = True, num_workers=20 )
         self.testing_loader = torch.utils.data.DataLoader( valset , batch_size = 1, shuffle = True, num_workers=20 )
 
-        net = self.get_model()
+        net = comm.get_model(self.model_type, self.scale_list, self.model_path )
         print(net)
 
         self.net = net.cuda()
@@ -37,19 +35,6 @@ class Trainer(object):
 
         self.optimizer = torch.optim.Adam( self.model.parameters(), lr=self.lr )
         self.scheduler = torch.optim.lr_scheduler.StepLR(self.optimizer, step_size=15, gamma=0.5)
-
-    def get_model(self):
-        self.model_type = self.model_type.lower()
-        if self.model_type == 'edsr':
-            return EDSR.EDSR(self.scale_list, self.model_path) 
-        elif self.model_type == 'mdsr':
-            return MDSR.MDSR( self.scale_list, self.model_path )
-        elif self.model_type == 'newnet':
-            return NewNet.NewNet( self.scale_list, self.model_path )
-        else:
-            print("no this model_type " + self.model_type)
-            exit(-1)
-
 
     def save(self):
         self.net.savemodel()
@@ -86,7 +71,7 @@ class Trainer(object):
 
     def run(self):
         self.build_model()
-        for epoch in range(1, self.epoch):
+        for epoch in range(1, self.epoch + 1):
             print("\n===> Epoch {} starts:".format(epoch))
             self.train()
             self.test()
