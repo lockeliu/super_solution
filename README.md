@@ -5,7 +5,7 @@
 *  math
 * numpy
 * random
-* *argparse
+* argparse
 *  Python 3.7.5
 * multiprocessing
 *  PyTorch >= 0.4.1
