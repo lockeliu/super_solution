@@ -6,7 +6,7 @@
 * numpy
 * random
 * argparse
-*  Python 3.7.5
+*  Python 3.6.4
 * multiprocessing
 *  PyTorch >= 0.4.1
 
