@@ -16,7 +16,7 @@ class NewNet(nn.Module):
         self.scale_list = list(set(self.scale_list))
         input_channel = 3
         output_channel = 3
-        num_block_list = [3,4,4,4] 
+        num_block_list = [6,6,6,6] 
         inp = 64
         rgb_range = 255 
         res_scale = 0.1 
