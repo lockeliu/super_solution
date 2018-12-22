@@ -16,11 +16,10 @@ class NewNet(nn.Module):
         self.scale_list = list(set(self.scale_list))
         input_channel = 3
         output_channel = 3
-        num_block_list = [4,2,2,2] 
+        num_block_list = [3,4,4,4] 
         inp = 64
         rgb_range = 255 
         res_scale = 0.1 
-        act = nn.ReLU(True)
         act = nn.LeakyReLU(negative_slope=0.05, inplace=True)
 
         # head

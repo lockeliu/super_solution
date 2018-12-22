@@ -14,7 +14,7 @@ class MDSR(nn.Module):
         self.scale_list = scale_list
         input_channel = 3
         output_channel = 3
-        num_block = 8 
+        num_block = 16 
         inp = 64
         rgb_range = 255 
         res_scale = 0.1
@@ -41,7 +41,7 @@ class MDSR(nn.Module):
         self.add_mean = common.MeanShift(rgb_range, sign = 1)
 
         self.model_path = model_path
-        self.load()
+        #self.load()
 
     def forward(self, x, scale):
         scale_id = str(scale[0].item() )

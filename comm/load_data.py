@@ -53,7 +53,7 @@ class MyDataSet(data.Dataset):
 
     def jpeg_compression(self, img ):
         if self.mode == 'train':
-            quality = random.randint( 50, 90 )
+            quality = random.randint( 75, 100 )
             encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), quality]
             result, encimg = cv2.imencode('.jpg', img, encode_param)
             decimg = cv2.imdecode(encimg, 1)

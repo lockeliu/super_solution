@@ -13,7 +13,7 @@ if __name__ == "__main__" :
     ap.add_argument('-i', required = False, help = 'input size', default = 48)
     ap.add_argument('-r', required = False, help = 'repeat', default = 10)
     ap.add_argument('-e', required = False, help = 'epoch', default = 100)
-    ap.add_argument('-l', required = False, help = 'lr', default = 0.001)
+    ap.add_argument('-l', required = False, help = 'lr', default = 0.0001)
     ap.add_argument('-g', required = False, help = 'gpu num', default = 4)
     ap.add_argument('-p', required = True, help = 'model_path')
     ap.add_argument('-dp', required = False, help = 'D_model_path', default = 'weight/SRGAN_Discriminator_weight.pt')
